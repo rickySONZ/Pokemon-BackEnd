@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2021_08_04_171313) do
 
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
+    t.string "uid"
     t.text "moves", default: [], array: true
     t.text "types", default: [], array: true
     t.string "front_image"
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_08_04_171313) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
