@@ -8,7 +8,7 @@
 move_counter = 1
 pokemon_counter = 1
 
-while pokemon_counter <= 20 do#1118
+while pokemon_counter <= 807 do #807
   Api.pokemon_pull(pokemon_counter)
   pokemon_counter += 1
 end
