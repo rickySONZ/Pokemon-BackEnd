@@ -3,7 +3,7 @@ class Api < ApplicationRecord
 
     def self.pokemon_pull(id)
       # hp check how its formated could do a loo[ to checl base_stat
-
+      
         url = "https://pokeapi.co/api/v2/pokemon/#{id}"
         pokemon_array = HTTParty.get(url)
         p = Pokemon.new(
@@ -18,8 +18,13 @@ class Api < ApplicationRecord
            :special_defense => pokemon_array["stats"][4]["base_stat"],
            :speed => pokemon_array["stats"][5]["base_stat"]
            )
+
         pokemon_array["moves"].each do |k|
-          p.moves.push(k["move"]["name"])
+          move_name = k["move"]["name"].split("-")
+          move_name = move_name.map do |m|
+            m.capitalize
+          end
+          p.moves.push(move_name.join(" "))
         end
         pokemon_array["types"].each do |k|
           p.types.push(k["type"]["name"])

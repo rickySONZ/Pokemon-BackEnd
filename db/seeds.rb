@@ -5,11 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-counter = 1
-while counter <= 844
-  Api.pokemon_pull(counter++)
+move_counter = 1
+pokemon_counter = 1
+
+while pokemon_counter <= 20 do#1118
+  Api.pokemon_pull(pokemon_counter)
+  pokemon_counter += 1
 end
 
-while counter <= 1118
-  Api.moves_pokemon(counter++)
-end
+
+# while move_counter <= 844
+#   Api.moves_pokemon(move_counter)
+#   move_counter++
+# end
+
