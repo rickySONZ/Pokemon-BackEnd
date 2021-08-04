@@ -3,11 +3,11 @@ class Api < ApplicationRecord
 
     def self.pokemon_pull(id)
       # hp check how its formated could do a loo[ to checl base_stat
-
+      
         url = "https://pokeapi.co/api/v2/pokemon/#{id}"
         pokemon_array = HTTParty.get(url)
         p = Pokemon.new(
-           :name => pokemon_array["name"],
+           :name => pokemon_array["name"].capitalize,
            :uid => pokemon_array["id"],
            :front_image => pokemon_array["sprites"]["other"]["official-artwork"]["front_default"],
            :back_image => pokemon_array["sprites"]["back_default"],
@@ -18,11 +18,16 @@ class Api < ApplicationRecord
            :special_defense => pokemon_array["stats"][4]["base_stat"],
            :speed => pokemon_array["stats"][5]["base_stat"]
            )
+
         pokemon_array["moves"].each do |k|
-          p.moves.push(k["move"]["name"])
+          move_name = k["move"]["name"].split("-")
+          move_name = move_name.map do |m|
+            m.capitalize
+          end
+          p.moves.push(move_name.join(" "))
         end
         pokemon_array["types"].each do |k|
-          p.types.push(k["type"]["name"])
+          p.types.push(k["type"]["name"].capitalize)
         end
         p.save!
 
@@ -32,15 +37,20 @@ class Api < ApplicationRecord
       url = "https://pokeapi.co/api/v2/move/#{id}"
       move_array = HTTParty.get(url)
       m = Move.new(
-        name: move_array["name"],
+        name: move_array["name"].capitalize,
         move_id: move_array["id"],
         accuracy: move_array["accuracy"],
         power: move_array["power"],
         pp: move_array["pp"],
         priority: move_array["priority"],
         effect_chance: move_array["effect_chance"],
-        pokemon_type: move_array["type"]["name"],
+        pokemon_type: move_array["type"]["name"].capitalize,
       )
+
+      m.name = m.name.split("-").map do |n|
+        n.capitalize
+      end.join(" ")
+      
       if move_array["damage_class"]["name"] === "special"
         m.special = true
       end
@@ -52,19 +62,19 @@ class Api < ApplicationRecord
       moveVar = move_array["effect_entries"][0]["short_effect"]
       if m.effect_chance != nil
       if moveVar.include?("burn")
-        m.effect = "burn"
+        m.effect = "Burn"
       end
       if moveVar.include?("poison")
-        m.effect = "poison"
+        m.effect = "Poison"
       end
       if moveVar.include?("paralyze")
-        m.effect = "paralyze"
+        m.effect = "Paralyze"
       end
       if moveVar.include?("sleep")
-        m.effect = "sleep"
+        m.effect = "Sleep"
       end
       if moveVar.include?("bound")
-        m.effect = "bound"
+        m.effect = "Bound"
       end
     end
       m.save!
