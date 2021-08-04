@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
-   def name 
+   def name
+     
    end
 
 
