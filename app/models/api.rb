@@ -1,9 +1,10 @@
 require "httparty"
 class Api < ApplicationRecord
 
-    def self.pokemon_pull()
+    def self.pokemon_pull(id)
       # hp check how its formated could do a loo[ to checl base_stat
-        url = "https://pokeapi.co/api/v2/pokemon/1"
+
+        url = "https://pokeapi.co/api/v2/pokemon/#{id}"
         pokemon_array = HTTParty.get(url)
         p = Pokemon.new(
            :name => pokemon_array["name"],
@@ -23,11 +24,12 @@ class Api < ApplicationRecord
         pokemon_array["types"].each do |k|
           p.types.push(k["type"]["name"])
         end
-        binding.pry
+        p.save!
+
     end
 
-    def self.moves_pokemon
-      url = "https://pokeapi.co/api/v2/move/209"
+    def self.moves_pokemon(id)
+      url = "https://pokeapi.co/api/v2/move/#{id}"
       move_array = HTTParty.get(url)
       m = Move.new(
         name: move_array["name"],
@@ -65,7 +67,7 @@ class Api < ApplicationRecord
         m.effect = "bound"
       end
     end
-      binding.pry
+      m.save!
 
     end
 
