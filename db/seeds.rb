@@ -13,9 +13,8 @@ while pokemon_counter <= 807 do #807
   pokemon_counter += 1
 end
 
-
-# while move_counter <= 844
-#   Api.moves_pokemon(move_counter)
-#   move_counter++
-# end
+while move_counter <= 742 do #742
+  Api.moves_pokemon(move_counter)
+  move_counter += 1
+end
 

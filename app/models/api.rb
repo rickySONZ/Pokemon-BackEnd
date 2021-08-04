@@ -37,15 +37,20 @@ class Api < ApplicationRecord
       url = "https://pokeapi.co/api/v2/move/#{id}"
       move_array = HTTParty.get(url)
       m = Move.new(
-        name: move_array["name"],
+        name: move_array["name"].capitalize,
         move_id: move_array["id"],
         accuracy: move_array["accuracy"],
         power: move_array["power"],
         pp: move_array["pp"],
         priority: move_array["priority"],
         effect_chance: move_array["effect_chance"],
-        pokemon_type: move_array["type"]["name"],
+        pokemon_type: move_array["type"]["name"].capitalize,
       )
+
+      m.name = m.name.split("-").map do |n|
+        n.capitalize
+      end.join(" ")
+      
       if move_array["damage_class"]["name"] === "special"
         m.special = true
       end
@@ -57,19 +62,19 @@ class Api < ApplicationRecord
       moveVar = move_array["effect_entries"][0]["short_effect"]
       if m.effect_chance != nil
       if moveVar.include?("burn")
-        m.effect = "burn"
+        m.effect = "Burn"
       end
       if moveVar.include?("poison")
-        m.effect = "poison"
+        m.effect = "Poison"
       end
       if moveVar.include?("paralyze")
-        m.effect = "paralyze"
+        m.effect = "Paralyze"
       end
       if moveVar.include?("sleep")
-        m.effect = "sleep"
+        m.effect = "Sleep"
       end
       if moveVar.include?("bound")
-        m.effect = "bound"
+        m.effect = "Bound"
       end
     end
       m.save!
