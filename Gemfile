@@ -42,3 +42,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "httparty", "~> 0.18.1"
 
 gem "pry", "~> 0.14.1"
+
+gem "faraday", "~> 1.6"
+
+
+
+gem "dotenv", "~> 2.7"
