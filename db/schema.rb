@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2021_08_04_180423) do
     t.integer "special_attack"
     t.integer "special_defense"
     t.integer "speed"
+    t.integer "tier"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
