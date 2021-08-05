@@ -15,13 +15,18 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=#{ENV['API_KEY']}"
+      body = {
+          email: params[:email],
+          password: params[:password],
+          returnSecureToken: true
 
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+      }
+
+      resp = Faraday.post(url, JSON.generate(body), 'Content-Type' => 'application/json')
+      data = JSON.parse(resp.body)
+      # byebug
+      render json: data
   end
 
   # PATCH/PUT /users/1
@@ -46,6 +51,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {})
+      params.require(:user).permit(:email, :password)
     end
 end
