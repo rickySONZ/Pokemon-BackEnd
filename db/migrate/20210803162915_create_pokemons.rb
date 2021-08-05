@@ -13,7 +13,7 @@ class CreatePokemons < ActiveRecord::Migration[6.1]
       t.integer :special_attack
       t.integer :special_defense
       t.integer :speed
-
+      t.integer :tier
 
       t.timestamps
     end

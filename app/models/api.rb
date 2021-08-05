@@ -29,6 +29,13 @@ class Api < ApplicationRecord
         pokemon_array["types"].each do |k|
           p.types.push(k["type"]["name"].capitalize)
         end
+        pstats = p.speed + p.defense + p.hp + p.special_attack + p.special_defense + p.attack 
+        if pstats < 350
+          p.tier = 1
+        elsif pstats < 500 
+          p.tier = 2
+        else p.tier = 3
+        end
         p.save!
 
     end
@@ -59,8 +66,8 @@ class Api < ApplicationRecord
           m.flavor_text = f["flavor_text"]
         end
       end
-      moveVar = move_array["effect_entries"][0]["short_effect"]
-      if m.effect_chance != nil
+      moveVar = move_array["effect_entries"][0]["effect"]
+      
       if moveVar.include?("burn")
         m.effect = "Burn"
       end
@@ -76,7 +83,6 @@ class Api < ApplicationRecord
       if moveVar.include?("bound")
         m.effect = "Bound"
       end
-    end
       m.save!
 
     end
