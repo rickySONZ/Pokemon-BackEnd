@@ -69,7 +69,6 @@ GEM
     concurrent-ruby (1.1.9)
     crass (1.0.6)
     dotenv (2.7.6)
-    env (0.3.0)
     erubi (1.10.0)
     faraday (1.6.0)
       faraday-em_http (~> 1.0)
@@ -188,7 +187,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   dotenv (~> 2.7)
-  env (~> 0.3.0)
   faraday (~> 1.6)
   httparty (~> 0.18.1)
   listen (~> 3.3)
