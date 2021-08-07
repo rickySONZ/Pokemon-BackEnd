@@ -48,3 +48,7 @@ gem "faraday", "~> 1.6"
 
 
 gem "dotenv", "~> 2.7"
+
+gem "nokogiri", "~> 1.12"
+
+gem "open-uri", "~> 0.1.0"

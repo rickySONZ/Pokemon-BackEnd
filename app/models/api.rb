@@ -1,4 +1,7 @@
 require "httparty"
+# require 'nokogiri'
+# require 'open-uri'
+
 class Api < ApplicationRecord
 
     def self.pokemon_pull(id)
@@ -87,5 +90,14 @@ class Api < ApplicationRecord
 
     end
 
+    def self.pokemon_description_pull(num)
+      doc = Nokogiri::HTML(URI.open("https://www.pokemon.com/us/pokedex/#{num}"))
+      pokemon = Pokemon.find_by_uid(num)
+
+      desc = doc.xpath('/html/body/div[4]/section[3]/div[2]/div/div[1]/p[2]').inner_html.strip!
+      pokemon.description = desc 
+      pokemon.save
+    end
+    
 
 end
