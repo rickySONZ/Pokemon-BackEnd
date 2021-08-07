@@ -25,8 +25,13 @@ class Api::V1::UsersController < ApplicationController
 
       resp = Faraday.post(url, JSON.generate(body), 'Content-Type' => 'application/json')
       data = JSON.parse(resp.body)
-      # byebug
-      render json: data
+
+      if(data.key?('localId'))
+        user = User.create(uid: data['localId'])
+        render json: user
+      else
+        render json: data
+      end
   end
 
   # PATCH/PUT /users/1

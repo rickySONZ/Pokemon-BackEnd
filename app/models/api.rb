@@ -1,4 +1,4 @@
-require "httparty"
+# require "httparty"
 class Api < ApplicationRecord
 
     def self.pokemon_pull(id)
