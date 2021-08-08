@@ -17,4 +17,3 @@ while move_counter <= 742 do #742
   Api.moves_pokemon(move_counter)
   move_counter += 1
 end
-

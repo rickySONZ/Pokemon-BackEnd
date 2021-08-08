@@ -3,7 +3,7 @@ class Api::V1::PokemonsController < ApplicationController
 
   # GET /pokemons
   def index
-    @pokemons = Pokemon.all
+    @pokemons = Pokemon.all.order('id')
 
     render json: @pokemons
   end

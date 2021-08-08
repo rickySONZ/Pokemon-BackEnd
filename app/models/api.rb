@@ -1,8 +1,20 @@
-# require "httparty"
+
+require "httparty"
+
+
 class Api < ApplicationRecord
 
+## This pulls description from pokedex site due to lack of info on API
+  def self.pokemon_description_pull(num, p)
+    doc = Nokogiri::HTML(URI.open("https://www.pokemon.com/us/pokedex/#{num}"))
+
+    desc = doc.xpath('/html/body/div[4]/section[3]/div[2]/div/div[1]/p[2]').inner_html.strip!
+    p.description = desc 
+    p.save
+  end
+
     def self.pokemon_pull(id)
-      # hp check how its formated could do a loo[ to checl base_stat
+      
       
         url = "https://pokeapi.co/api/v2/pokemon/#{id}"
         pokemon_array = HTTParty.get(url)
@@ -26,17 +38,21 @@ class Api < ApplicationRecord
           end
           p.moves.push(move_name.join(" "))
         end
+
+
         pokemon_array["types"].each do |k|
           p.types.push(k["type"]["name"].capitalize)
         end
         pstats = p.speed + p.defense + p.hp + p.special_attack + p.special_defense + p.attack 
-        if pstats < 350
+        if pstats < 335
           p.tier = 1
-        elsif pstats < 500 
+        elsif pstats < 480
           p.tier = 2
         else p.tier = 3
         end
-        p.save!
+
+        ## The save for the pokemon is happening in the description pull to avoid redundancy
+        Api.pokemon_description_pull(id, p)
 
     end
 
@@ -86,6 +102,6 @@ class Api < ApplicationRecord
       m.save!
 
     end
-
+    
 
 end
