@@ -1,6 +1,6 @@
+
 require "httparty"
-# require 'nokogiri'
-# require 'open-uri'
+
 
 class Api < ApplicationRecord
 
