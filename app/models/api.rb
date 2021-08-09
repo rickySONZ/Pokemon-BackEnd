@@ -10,7 +10,7 @@ class Api < ApplicationRecord
 
     desc = doc.xpath('/html/body/div[4]/section[3]/div[2]/div/div[1]/p[2]').inner_html.strip!
     p.description = desc 
-    p.save
+   
   end
 
     def self.pokemon_pull(id)
@@ -53,6 +53,7 @@ class Api < ApplicationRecord
 
         ## The save for the pokemon is happening in the description pull to avoid redundancy
         Api.pokemon_description_pull(id, p)
+        p.save
 
     end
 
