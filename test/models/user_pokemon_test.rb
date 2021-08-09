@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PokemonMoveTest < ActiveSupport::TestCase
+class UserPokemonTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

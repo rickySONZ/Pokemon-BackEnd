@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  resources :user_pokemons
   namespace :api do
     namespace :v1 do
       resources :moves
-      resources :pokemon_moves
-      resources :users
+          resources :users
       resources :sessions
       resources :pokemons
     end
