@@ -1,3 +1,0 @@
-class PokemonMove < ApplicationRecord
-  
-end
