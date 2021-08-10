@@ -36,9 +36,8 @@ class Api < ApplicationRecord
           move_name = move_name.map do |m|
             m.capitalize
           end
-          p.moves.push(move_name.join(" "))
+          p.moves_names_only.push(move_name.join(" "))
         end
-
 
         pokemon_array["types"].each do |k|
           p.types.push(k["type"]["name"].capitalize)
@@ -54,6 +53,15 @@ class Api < ApplicationRecord
         ## The save for the pokemon is happening in the description pull to avoid redundancy
         Api.pokemon_description_pull(id, p)
         p.save
+        p.moves_names_only.each do |move|
+          add_move = Move.find_by_name(move)
+
+          # This line is filtering out moves with no power from being assgined to Pokemon
+          # To have moves with only effects appear delete this line
+          if add_move.power
+          newMove = PokemonMove.create(:pokemon_id => p.uid, :move_id => add_move.id)
+          end
+        end
 
     end
 
@@ -62,7 +70,7 @@ class Api < ApplicationRecord
       move_array = HTTParty.get(url)
       m = Move.new(
         name: move_array["name"].capitalize,
-        move_id: move_array["id"],
+        uid: move_array["id"],
         accuracy: move_array["accuracy"],
         power: move_array["power"],
         pp: move_array["pp"],

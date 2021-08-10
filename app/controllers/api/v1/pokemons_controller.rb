@@ -5,7 +5,7 @@ class Api::V1::PokemonsController < ApplicationController
   def index
     @pokemons = Pokemon.all.order('id')
 
-    render json: @pokemons
+    render json: @pokemons.as_json(:except => [:moves_names_only], include: [:moves])
   end
 
   # GET /pokemons/1
