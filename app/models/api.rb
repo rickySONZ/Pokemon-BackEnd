@@ -53,7 +53,6 @@ class Api < ApplicationRecord
 
         ## The save for the pokemon is happening in the description pull to avoid redundancy
         Api.pokemon_description_pull(id, p)
-
     end
 
     def self.moves_pokemon(id)
