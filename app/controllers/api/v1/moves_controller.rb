@@ -4,8 +4,8 @@ class Api::V1::MovesController < ApplicationController
   # GET /moves
   def index
     @moves = Move.all
-
-    render json: @moves
+   
+    render json: @moves.power_moves_only
   end
 
   # GET /moves/1

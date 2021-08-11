@@ -1,4 +1,4 @@
-class Api::V1::PokemonMovesController < ApplicationController
+class PokemonMovesController < ApplicationController
   before_action :set_pokemon_move, only: [:show, :update, :destroy]
 
   # GET /pokemon_moves

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_07_195959) do
+ActiveRecord::Schema.define(version: 2021_08_10_181204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "moves", force: :cascade do |t|
     t.string "name"
-    t.integer "move_id"
+    t.integer "uid"
     t.integer "accuracy"
     t.integer "power"
     t.integer "pp"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_08_07_195959) do
   end
 
   create_table "pokemon_moves", force: :cascade do |t|
+    t.integer "pokemon_id"
+    t.integer "move_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -39,8 +41,8 @@ ActiveRecord::Schema.define(version: 2021_08_07_195959) do
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
     t.string "uid"
-    t.text "moves", default: [], array: true
     t.text "types", default: [], array: true
+    t.text "moves_names_only", default: [], array: true
     t.string "front_image"
     t.string "back_image"
     t.integer "hp"
@@ -55,10 +57,20 @@ ActiveRecord::Schema.define(version: 2021_08_07_195959) do
     t.string "description"
   end
 
+  create_table "user_pokemons", force: :cascade do |t|
+    t.text "active_moves", default: [], array: true
+    t.text "purchased_moves", default: [], array: true
+    t.integer "user_id"
+    t.integer "pokemon_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "tokens", default: 50
   end
 
 end
