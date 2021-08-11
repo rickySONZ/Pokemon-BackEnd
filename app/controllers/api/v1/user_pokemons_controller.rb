@@ -3,9 +3,11 @@ class Api::V1::UserPokemonsController < ApplicationController
 
   # GET /user_pokemons
   def index
-    @user_pokemons = UserPokemon.all
+    @user_pokemons = UserPokemon.all.where(user_id: params[:user_id])
+    
+    
 
-    render json: @user_pokemons
+    render json: @user_pokemons.to_json(include: [:pokemon])
   end
 
   # GET /user_pokemons/1
@@ -20,7 +22,7 @@ class Api::V1::UserPokemonsController < ApplicationController
     
     
     if @user_pokemon.save
-      render json: @user_pokemon, status: :created
+      render json: @user_pokemon.to_json(include: [:pokemon]), status: :created
     else
       render json: @user_pokemon.errors, status: :unprocessable_entity
     end
