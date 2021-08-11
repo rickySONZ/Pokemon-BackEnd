@@ -1,11 +1,13 @@
-class UserPokemonsController < ApplicationController
+class Api::V1::UserPokemonsController < ApplicationController
   before_action :set_user_pokemon, only: [:show, :update, :destroy]
 
   # GET /user_pokemons
   def index
-    @user_pokemons = UserPokemon.all
+    @user_pokemons = UserPokemon.all.where(user_id: params[:user_id])
+    
+    
 
-    render json: @user_pokemons
+    render json: @user_pokemons.to_json(include: [:pokemon])
   end
 
   # GET /user_pokemons/1
@@ -15,10 +17,12 @@ class UserPokemonsController < ApplicationController
 
   # POST /user_pokemons
   def create
-    @user_pokemon = UserPokemon.new(user_pokemon_params)
-
+    
+    @user_pokemon = UserPokemon.new(user_id: params[:user_id], pokemon_id: params[:pokemon_id])
+    
+    
     if @user_pokemon.save
-      render json: @user_pokemon, status: :created, location: @user_pokemon
+      render json: @user_pokemon.to_json(include: [:pokemon]), status: :created
     else
       render json: @user_pokemon.errors, status: :unprocessable_entity
     end

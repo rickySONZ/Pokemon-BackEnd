@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 2021_08_10_181204) do
   create_table "user_pokemons", force: :cascade do |t|
     t.text "active_moves", default: [], array: true
     t.text "purchased_moves", default: [], array: true
-    t.text "moves", default: [], array: true
     t.integer "user_id"
     t.integer "pokemon_id"
     t.datetime "created_at", precision: 6, null: false
