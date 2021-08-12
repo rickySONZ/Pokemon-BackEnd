@@ -17,7 +17,7 @@ class Api::V1::UserPokemonsController < ApplicationController
 
   # POST /user_pokemons
   def create
-  
+
     @user_pokemon = UserPokemon.new(user_id: params[:user_id], pokemon_id: params[:pokemon_id])
     
     pokemon = Pokemon.find(params[:pokemon_id])
@@ -31,7 +31,7 @@ class Api::V1::UserPokemonsController < ApplicationController
     end
     user.save
     if @user_pokemon.save
-      render json: @user_pokemon.to_json(include: [:pokemon]), status: :created
+      render json: @user_pokemon.to_json(include: [:pokemon]), status: 200
     else
       render json: @user_pokemon.errors, status: :unprocessable_entity
     end
