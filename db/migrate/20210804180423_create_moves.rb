@@ -2,7 +2,7 @@ class CreateMoves < ActiveRecord::Migration[6.1]
   def change
     create_table :moves do |t|
       t.string :name
-      t.integer :move_id
+      t.integer :uid
       t.integer :accuracy
       t.integer :power
       t.integer :pp

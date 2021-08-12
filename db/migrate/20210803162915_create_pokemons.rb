@@ -3,8 +3,8 @@ class CreatePokemons < ActiveRecord::Migration[6.1]
     create_table :pokemons do |t|
       t.string :name
       t.string :uid
-      t.text :moves, array: true, default: []
       t.text :types, array: true, default: []
+      t.text :moves_names_only, array: true, default: []
       t.string :front_image
       t.string :back_image
       t.integer :hp
