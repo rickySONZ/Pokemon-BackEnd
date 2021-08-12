@@ -11,9 +11,14 @@ class Api::V1::UsersController < ApplicationController
   # GET /users/1
   def show
     @user = User.find_by(uid: params[:id])
+   
 
     if @user.valid?
-      render json: @user
+      render json: {
+        tokens: @user.tokens,
+        uid: @user.uid,
+        id: @user.id
+      }
     else
       render json: {error: "User Not Found"}
     end

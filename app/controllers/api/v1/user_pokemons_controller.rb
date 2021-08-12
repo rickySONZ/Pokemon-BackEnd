@@ -18,7 +18,7 @@ class Api::V1::UserPokemonsController < ApplicationController
   # POST /user_pokemons
   def create
 
-    @user_pokemon = UserPokemon.new(user_id: params[:user_id], pokemon_id: params[:pokemon_id])
+    @user_pokemon = UserPokemon.new(user_id: params[:user_id], pokemon_id: params[:pokemon_id], active_moves: params[:active_moves])
     
     pokemon = Pokemon.find(params[:pokemon_id])
     user = User.find(params[:user_id])
