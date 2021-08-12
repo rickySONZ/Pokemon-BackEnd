@@ -1,4 +1,4 @@
-class Api::V1::UsersController < ApplicationController
+class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -10,13 +10,7 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @user = User.find_by(uid: params[:id])
-
-    if @user.valid?
-      render json: @user
-    else
-      render json: {error: "User Not Found"}
-    end
+    render json: @user
   end
 
   # POST /users
@@ -31,13 +25,8 @@ class Api::V1::UsersController < ApplicationController
 
       resp = Faraday.post(url, JSON.generate(body), 'Content-Type' => 'application/json')
       data = JSON.parse(resp.body)
-
-      if(data.key?('localId'))
-        user = User.create(uid: data['localId'])
-        render json: user
-      else
-        render json: data
-      end
+      # byebug
+      render json: data
   end
 
   # PATCH/PUT /users/1
@@ -57,8 +46,7 @@ class Api::V1::UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-
-      @user = User.find_by(uid: params[:uid])
+      @user = User.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
