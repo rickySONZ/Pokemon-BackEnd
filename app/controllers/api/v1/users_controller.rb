@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
 
     render json: @users
   end
-
+# // fetch
   # GET /users/1
   def show
     @user = User.find_by(uid: params[:id])
