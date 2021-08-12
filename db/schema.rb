@@ -31,11 +31,6 @@ ActiveRecord::Schema.define(version: 2021_08_09_192507) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "pokemon_moves", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
     t.string "uid"
