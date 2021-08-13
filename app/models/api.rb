@@ -52,8 +52,6 @@ class Api < ApplicationRecord
 
         ## The save for the pokemon is happening in the description pull to avoid redundancy
         Api.pokemon_description_pull(id, p)
-<<<<<<< HEAD
-=======
         p.save
         p.moves_names_only.each do |move|
           add_move = Move.find_by_name(move)
@@ -65,7 +63,6 @@ class Api < ApplicationRecord
           end
         end
 
->>>>>>> origin/main
     end
 
     def self.moves_pokemon(id)
