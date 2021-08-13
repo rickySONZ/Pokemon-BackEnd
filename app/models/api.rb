@@ -58,7 +58,7 @@ class Api < ApplicationRecord
 
           # This line is filtering out moves with no power from being assgined to Pokemon
           # To have moves with only effects appear delete this line
-          if add_move.power
+          if add_move && add_move.power
           newMove = PokemonMove.create(:pokemon_id => p.uid, :move_id => add_move.id)
           end
         end
