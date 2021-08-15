@@ -8,6 +8,7 @@
 move_counter = 1
 pokemon_counter = 1 # start at 25
 
+## For the proper association between moves and pokemon, you need to seed moves before pokemon
 while move_counter <= 742 do #742
   Api.moves_pokemon(move_counter)
   move_counter += 1
