@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(version: 2021_08_10_181204) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.integer "win_streak", default: 0
+    t.integer "wins", default: 0
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

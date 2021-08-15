@@ -11,13 +11,13 @@ class Api::V1::UsersController < ApplicationController
   # GET /users/1
   def show
     @user = User.find_by(uid: params[:id])
-   
-
     if @user.valid?
       render json: {
+        userName: @user.username,
+
         tokens: @user.tokens,
         uid: @user.uid,
-        id: @user.id
+        id: @user.id,
       }
     else
       render json: {error: "User Not Found"}
@@ -38,7 +38,7 @@ class Api::V1::UsersController < ApplicationController
       data = JSON.parse(resp.body)
 
       if(data.key?('localId'))
-        user = User.create(uid: data['localId'])
+        user = User.create(uid: data['localId'], username: params[:username])
         render json: user
       else
         render json: data
