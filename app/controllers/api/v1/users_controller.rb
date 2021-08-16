@@ -48,8 +48,8 @@ class Api::V1::UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-
-    @user = User.find_by(uid: params[:id])
+    binding.pry
+    @user = User.find_by(id: params[:id])
 
     if @user.update(user_params)
       render json: @user
@@ -71,6 +71,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :password, :win_streak, :wins)
+      params.require(:user).permit(:email, :password, :win_streak, :wins, :tokens, :username)
     end
 end
