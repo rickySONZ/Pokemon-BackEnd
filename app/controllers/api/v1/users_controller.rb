@@ -13,8 +13,9 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find_by(uid: params[:id])
     if @user.valid?
       render json: {
-        userName: @user.username,
-
+        username: @user.username,
+        wins: @user.wins,
+        win_streak: @user.win_streak,
         tokens: @user.tokens,
         uid: @user.uid,
         id: @user.id,
@@ -47,6 +48,9 @@ class Api::V1::UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+
+    @user = User.find_by(uid: params[:id])
+
     if @user.update(user_params)
       render json: @user
     else
@@ -67,6 +71,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :win_streak, :wins)
     end
 end
