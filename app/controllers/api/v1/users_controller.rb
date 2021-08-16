@@ -48,7 +48,6 @@ class Api::V1::UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    binding.pry
     @user = User.find_by(id: params[:id])
 
     if @user.update(user_params)
