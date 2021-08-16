@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_08_10_181204) do
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "tokens", default: 50
+    t.integer "tokens", default: 200
   end
 
 end
